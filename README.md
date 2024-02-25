@@ -39,9 +39,8 @@ To run the shell, execute the compiled binary:
 
 ## Contributors
 
-- [Your Name](https://github.com/your_username)
-- [Collaborator Name](https://github.com/collaborator_username)
+- [Your Name](https://github.com/Dagmawi-Y)
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](https://opensource.org/license/mit).

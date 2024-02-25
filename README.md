@@ -23,11 +23,11 @@ The Simple Shell project is a command-line interpreter that allows users to inte
 
 To compile the shell program, run the following command:
 
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+- gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
 To run the shell, execute the compiled binary:
 
-./hsh
+- ./hsh
 
 ## File Structure
 
@@ -39,7 +39,7 @@ To run the shell, execute the compiled binary:
 
 ## Contributors
 
-- [Your Name](https://github.com/Dagmawi-Y)
+- [Dagmawi](https://github.com/Dagmawi-Y)
 
 ## License
 

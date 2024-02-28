@@ -9,20 +9,21 @@
  */
 int main(int argc, char **argv, char **env)
 {
-    char *line;
-    char **args;
+	char *line;
+	char **args;
 
-    (void)argc;
-    (void)argv;
+	(void)argc;
+	(void)argv;
 
-    do {
-        printf(":) ");
-        line = read_command();
-        args = parse_line(line);
-        execute_command(args, env);
-        free(line);
-        free(args);
-    } while (1);
+	do {
+		printf(":) ");
+		line = read_command();
+		args = parse_line(line);
+		execute_command(args, env);
+		free(line);
+		free(args);
+	} while (1);
 
-    return (0);
+	return (0);
 }
+

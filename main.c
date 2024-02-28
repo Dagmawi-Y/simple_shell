@@ -1,14 +1,12 @@
 #include "main.h"
 
 /**
- * main - Entry point of the shell program
- *
- * Return: Always 0
+ * main - a Function that ...
+ * Return: Description of the return value.
  */
 int main(void)
 {
 	char *line;
-	int status;
 
 	while (1)
 	{
@@ -19,7 +17,7 @@ int main(void)
 			printf("\n");
 			break;
 		}
-		status = execute_line(line);
+		execute_line(line);
 		free(line);
 	}
 

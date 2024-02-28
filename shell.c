@@ -1,24 +1,24 @@
 #include "main.h"
+#include <string.h>
+#include <sys/wait.h>
 
 /**
- * read_line - Read a line of input from stdin
- *
- * Return: Pointer to the read line
+ * read_line - a Function that ...
+ * Return: Description of the return value.
  */
 char *read_line(void)
 {
 	char *line = NULL;
-	ssize_t bufsize = 0;
+	size_t bufsize = 0;
 
 	getline(&line, &bufsize, stdin);
 	return (line);
 }
 
 /**
- * execute_line - Execute a command line
- * @line: The command line to execute
- *
- * Return: Always 1
+ * execute_line - a Function that ...
+ * @line: Description of line.
+ * Return: Description of the return value.
  */
 int execute_line(char *line)
 {
@@ -30,7 +30,12 @@ int execute_line(char *line)
 	pid = fork();
 	if (pid == 0) /* Child process */
 	{
-		if (execve(line, NULL, NULL) == -1)
+		char *args[2];
+
+		args[0] = line;
+		args[1] = NULL;
+
+		if (execve(line, args, NULL) == -1)
 		{
 			perror(line);
 			exit(EXIT_FAILURE);

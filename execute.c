@@ -7,26 +7,26 @@
  */
 void execute_command(char **argv, char **env)
 {
-    pid_t pid;
-    int status;
+	pid_t pid;
+	int status;
 
-    pid = fork();
-    if (pid == -1)
-        perror("Error");
-    if (pid == 0)
-    {
-        if (execve(argv[0], argv, env) == -1)
-        {
-            perror("Error");
-            exit(EXIT_FAILURE);
-        }
-    }
-    else
-    {
-        do {
-            waitpid(pid, &status, WUNTRACED);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-    }
+	pid = fork();
+	if (pid == -1)
+		perror("Error");
+	if (pid == 0)
+	{
+		if (execve(argv[0], argv, env) == -1)
+		{
+			perror("Error");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		do {
+			waitpid(pid, &status, WUNTRACED);
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+	}
 }
 
 /**
@@ -35,21 +35,22 @@ void execute_command(char **argv, char **env)
  */
 char *read_command(void)
 {
-    char *line = NULL;
-    size_t bufsize = 0;
+	char *line = NULL;
+	size_t bufsize = 0;
 
-    if (getline(&line, &bufsize, stdin) == -1)
-    {
-        if (feof(stdin))
-        {
-            printf("\n");
-            exit(EXIT_SUCCESS);
-        }
-        else
-        {
-            perror("Error");
-            exit(EXIT_FAILURE);
-        }
-    }
-    return (line);
+	if (getline(&line, &bufsize, stdin) == -1)
+	{
+		if (feof(stdin))
+		{
+			printf("\n");
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			perror("Error");
+			exit(EXIT_FAILURE);
+		}
+	}
+	return (line);
 }
+

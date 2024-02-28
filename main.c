@@ -1,28 +1,27 @@
 #include "main.h"
 
 /**
- * main - Entry point
- * @argc: Argument count
- * @argv: Argument array
- * @env: Environment variables
- * Return: 0 on success, 1 on failure
+ * main - Entry point of the shell program
+ *
+ * Return: Always 0
  */
-int main(int argc, char **argv, char **env)
+int main(void)
 {
 	char *line;
-	char **args;
+	int status;
 
-	(void)argc;
-	(void)argv;
-
-	do {
-		printf(":) ");
-		line = read_command();
-		args = parse_line(line);
-		execute_command(args, env);
+	while (1)
+	{
+		printf("#cisfun$ ");
+		line = read_line();
+		if (line == NULL)
+		{
+			printf("\n");
+			break;
+		}
+		status = execute_line(line);
 		free(line);
-		free(args);
-	} while (1);
+	}
 
 	return (0);
 }

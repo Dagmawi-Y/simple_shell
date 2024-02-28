@@ -1,4 +1,4 @@
 /.idea
 *.bak
 .processed_files
-\#execute.c#
+#execute.c#

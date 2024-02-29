@@ -2,3 +2,5 @@
 *.bak
 .processed_files
 #execute.c#
+--help
+tasks

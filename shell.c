@@ -1,97 +1,111 @@
-#include "main.h"
-#include <string.h>
-#include <stdlib.h>
-#include <sys/wait.h>
+#include "shell.h"
 
 /**
- * parse_line - a Function that ...
- * @line: Description of line.
- * Return: Description of the return value.
+ * main - Entry point for the simple shell.
+ *
+ * Return: Always 0.
  */
-char **parse_line(char *line);
-/**
- * read_line - a Function that ...
- * Return: Description of the return value.
- */
-char *read_line(void);
-
-/**
- * execute_line - a Function that ...
- * @line: Description of line.
- * Return: Description of the return value.
- */
-int execute_line(char *line)
+int main(void)
 {
-	pid_t pid;
-	int status;
+	char *line;
 	char **args;
+	int status;
 
-	args = parse_line(line);
-	if (args == NULL)
-	{
-		return (1);
-	}
+	do {
+		printf("#cisfun$ ");
+		line = read_line();
+		args = split_line(line);
+		status = execute_command(args);
 
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execve(args[0], args, NULL) == -1)
-		{
-			perror(args[0]);
-			exit(EXIT_FAILURE);
-		}
-	}
-	else if (pid < 0)
-	{
-		perror("fork");
-	}
-	else
-	{
-		do {
-			waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-	}
+		free(line);
+		free_args(args);
+	} while (status);
 
-	free(args);
-	return (1);
+	return (0);
 }
 
-char **parse_line(char *line)
-{
-	const char *delimiters = " \t\r\n\a";
-	char **tokens = malloc(sizeof(char *) * 64);
-	char *token;
-	int position = 0;
-
-	if (tokens == NULL)
-	{
-		perror("malloc");
-		return (NULL);
-	}
-
-	token = strtok(line, delimiters);
-	while (token != NULL)
-	{
-		tokens[position] = token;
-		position++;
-
-		token = strtok(NULL, delimiters);
-	}
-	tokens[position] = NULL;
-
-	return (tokens);
-}
-
+/**
+ * read_line - Read a line of input from stdin.
+ *
+ * Return: The line read from stdin.
+ */
 char *read_line(void)
 {
 	char *line = NULL;
 	size_t bufsize = 0;
 
-	if (getline(&line, &bufsize, stdin) == -1)
+	getline(&line, &bufsize, stdin);
+	return (line);
+}
+
+/**
+ * split_line - Split a line into tokens (words).
+ * @line: The line to split.
+ *
+ * Return: An array of tokens.
+ */
+char **split_line(char *line)
+{
+	const char *delimiter = " \t\n";
+	char **tokens = malloc(BUFFER_SIZE * sizeof(char *));
+	char *token;
+	int i = 0;
+
+	if (!tokens)
 	{
-		perror("getline");
+		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	return (line);
+
+	token = strtok(line, delimiter);
+	while (token != NULL)
+	{
+		tokens[i++] = token;
+		token = strtok(NULL, delimiter);
+	}
+	tokens[i] = NULL;
+	return (tokens);
+}
+
+/**
+ * execute_command - Execute a command with its arguments.
+ * @args: The array of command and arguments.
+ *
+ * Return: 1 if the shell should continue, 0 if the shell should exit.
+ */
+int execute_command(char **args)
+{
+	pid_t pid;
+	int status;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	} else if (pid == 0)
+	{
+		/* Child process */
+		if (execvp(args[0], args) == -1)
+		{
+			perror("execvp");
+			exit(EXIT_FAILURE);
+		}
+	} else
+	{
+		/* Parent process */
+		wait(&status);
+	}
+
+	return (1);
+}
+
+/**
+ * free_args - Free memory allocated for the array of arguments.
+ * @args: The array of arguments to free.
+ */
+void free_args(char **args)
+{
+	free(args);
 }
 

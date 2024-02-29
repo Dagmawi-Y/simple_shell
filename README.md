@@ -1,4 +1,5 @@
 # Simple Shell
+![Unix Shell Image](shell.jpg)
 
 This is a simple shell program designed to mimic the basic functionality of the `/bin/sh` shell.
 

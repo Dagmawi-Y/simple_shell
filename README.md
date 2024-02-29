@@ -32,11 +32,15 @@ To run the shell, execute the compiled binary:
 
 ## File Structure
 
-- `shell.c`: Contains the main logic for the shell program.
-- `helper_functions.c`: Contains helper functions used in the shell program.
+- `main.c`: Contains the `main` function for the shell program.
+- `helper_functions.c`: Contains the helper functions for the main program.
+- `executor.c`: Contains the `execute_command` function to execute a command with its arguments.
+- `free_args.c`: Contains the `free_args` function to free memory allocated for arguments.
+- `shell.h`: Header file defining function prototypes and macros used in the project.
 - `README.md`: This file provides an overview of the project.
 - `AUTHORS`: Lists contributors to the project.
 - Other source files and header files as needed.
+
 
 ## Contributors
 

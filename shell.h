@@ -7,6 +7,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <string.h>
+#include <sys/stat.h>
 
 #define BUFFER_SIZE 1024
 
@@ -15,6 +16,7 @@ char *read_line(void);
 char **split_line(char *line);
 int execute_command(char **args);
 void free_args(char **args);
+int command_exists(const char *command);
 
 #endif /* SHELL_H */
 

@@ -45,7 +45,3 @@ To run the shell, execute the compiled binary:
 ## Contributors
 
 - [Dagmawi](https://github.com/Dagmawi-Y)
-
-## License
-
-This project is licensed under the [MIT License](https://opensource.org/license/mit).
